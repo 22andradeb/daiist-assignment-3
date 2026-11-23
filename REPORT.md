@@ -1,8 +1,8 @@
 # Assignment 3 Report
 
-- **Name**:
-- **Student ID**:
-- **Group**: [BBADBA 5A | BBADBA 5B | PPLEDBA 5A]
+- **Name**: Bernarda Andrade 
+- **Student ID**: 19119
+- **Group**: BBADBA 5A
 
 ## Use case
 
