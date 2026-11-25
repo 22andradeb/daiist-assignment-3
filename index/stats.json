@@ -1,5 +1,5 @@
 {
-  "section": [
+  "fixed": [
     {
       "source": "eliquis",
       "pages": 185,
@@ -8,9 +8,9 @@
       "duplicate_words_removed": 18596,
       "kept_words": 21964,
       "sections": 67,
-      "chunks": 141,
+      "chunks": 88,
       "file_hash": "2c0830820630062f4840bfa3480c75f2e906f4d88046edf420c3e31195b50b2d",
-      "embedded": 141,
+      "embedded": 88,
       "stale_removed": 0
     },
     {
@@ -21,9 +21,9 @@
       "duplicate_words_removed": 25839,
       "kept_words": 29330,
       "sections": 94,
-      "chunks": 196,
+      "chunks": 118,
       "file_hash": "296cd19bd9d543e8a553e31f26d947abea5c7cc81862818289ca4c4ece9a3aa9",
-      "embedded": 196,
+      "embedded": 118,
       "stale_removed": 0
     },
     {
@@ -34,9 +34,9 @@
       "duplicate_words_removed": 17795,
       "kept_words": 21014,
       "sections": 50,
-      "chunks": 124,
+      "chunks": 84,
       "file_hash": "97eb500b7cc10df21603b78297141a9468702d97ae28ea7540713595858adc14",
-      "embedded": 124,
+      "embedded": 84,
       "stale_removed": 0
     }
   ]

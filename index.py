@@ -50,7 +50,7 @@ EMBED_BATCH = 20         # texts per request; each text counts toward the daily 
 
 # Retrieval designs compared in evaluate.py. Both use the same cleaned text.
 DESIGNS = {
-    "fixed": "150-word windows (30 overlap) over each document part, ignoring section boundaries",
+    "fixed": "300-word windows (50 overlap) over each document part, ignoring section boundaries",
     "section": "one chunk per SmPC/leaflet section, split at <=250 words, heading prepended",
 }
 DEFAULT_DESIGN = "section"
@@ -285,7 +285,7 @@ def chunk_sections(sections: list[Section], design: str, file_hash: str = "") ->
                        "embed_text": f"title: {title} | text: {text}"})
 
     if design == "fixed":
-        size, overlap = 150, 30
+        size, overlap = 300, 50
         groups: dict[tuple[str, str], list[tuple[Section, Paragraph]]] = {}
         for s in sections:
             groups.setdefault((s.source, s.doc_part), []).extend((s, p) for p in s.paragraphs)
@@ -406,14 +406,22 @@ def collection(design: str = None):
     """The ChromaDB collection for a design (default: the one chosen in config)."""
     import chromadb
     design = design or active_design()
-    client = chromadb.PersistentClient(path=str(CHROMA_DIR))
+    client = chromadb.PersistentClient(path=str(CHROMA_DIR),
+                                       settings=chromadb.Settings(anonymized_telemetry=False))
     return client.get_or_create_collection(f"chunks_{design}", metadata={"hnsw:space": "cosine"})
 
 
+def config() -> dict:
+    """index/config.json: the design and search method chosen by evaluate.py."""
+    return json.loads(CONFIG_FILE.read_text()) if CONFIG_FILE.exists() else {}
+
+
 def active_design() -> str:
-    if CONFIG_FILE.exists():
-        return json.loads(CONFIG_FILE.read_text()).get("active_design", DEFAULT_DESIGN)
-    return DEFAULT_DESIGN
+    return config().get("active_design", DEFAULT_DESIGN)
+
+
+def active_method() -> str:
+    return config().get("method", "dense")
 
 
 def embed_and_store(chunks: list[dict], design: str) -> int:
